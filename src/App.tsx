@@ -12,14 +12,14 @@ function App() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("EMAIL", email);
 
     try {
-       await fetch(
+      await fetch(
         "https://gmail.us22.list-manage.com/subscribe/post?u=eb87cdceb23489f638a0f2a9f&id=4b3d73387d",
         {
           method: "POST",
@@ -28,7 +28,7 @@ function App() {
         }
       );
 
-      setEmail('')
+      setEmail("");
       setStatus("success");
     } catch (error) {
       setStatus("error");
@@ -38,8 +38,6 @@ function App() {
   return (
     <div className="overlay">
       <Header />
-
-      
 
       <main>
         <section className="main">
@@ -57,8 +55,16 @@ function App() {
                 />
               </div>
               <button type="submit">Subscribe</button>
-              {status === "success" && <p style={{color: '#000'}}>Спасибо за подписку!</p>}
-              {status === "error" && <p style={{color: '#000'}}>Произошла ошибка, попробуйте снова.</p>}
+              {status !== "success" && (
+                <p style={{ color: "green", fontSize: 24 }}>
+                  Thanks for subscribing!
+                </p>
+              )}
+              {status === "error" && (
+                <p style={{ color: "#000", fontSize: 24 }}>
+                  An error occurred, please try again.
+                </p>
+              )}
             </form>
           </div>
         </section>
@@ -163,11 +169,12 @@ function App() {
             <div className="community-left">
               <h2>Community Connection</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellendus culpa aliquam aperiam aut eum velit?
+                Join a vibrant community of fellow language learners and
+                polyglots. Collaborate, share experiences, and support each
+                other on your language learning journey.
               </p>
 
-              <button>Submit</button>
+              {/* <button>Submit</button> */}
             </div>
 
             <img src={Community} alt="" />
