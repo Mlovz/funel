@@ -11,6 +11,7 @@ import { useState } from "react";
 function App() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ function App() {
     const formData = new FormData();
     formData.append("EMAIL", email);
 
+    setIsLoading(true);
     try {
       await fetch(
         "https://gmail.us22.list-manage.com/subscribe/post?u=eb87cdceb23489f638a0f2a9f&id=4b3d73387d",
@@ -27,7 +29,7 @@ function App() {
           mode: "no-cors", // Mailchimp не требует CORS
         }
       );
-
+      setIsLoading(false);
       setEmail("");
       setStatus("success");
     } catch (error) {
@@ -38,6 +40,11 @@ function App() {
   return (
     <div className="overlay">
       <Header />
+      {isLoading && (
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
 
       <main>
         <section className="main">
@@ -55,7 +62,7 @@ function App() {
                 />
               </div>
               <button type="submit">Subscribe</button>
-              {status !== "success" && (
+              {status === "success" && (
                 <p style={{ color: "green", fontSize: 24 }}>
                   Thanks for subscribing!
                 </p>

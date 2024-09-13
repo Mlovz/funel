@@ -19,6 +19,37 @@ ul, ol{
   list-style-type: none;
 }
 
+.spinner-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.spinner {
+  display: inline-block;
+  width: 46px;
+  height: 46px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #9b51e0; /* Цвет линии спиннера */
+  animation: google-spin 1s ease-in-out infinite;
+}
+
+@keyframes google-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 a{
   text-decoration: none;
   color: var(--white);
